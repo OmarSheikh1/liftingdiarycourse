@@ -36,14 +36,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <header className="flex items-center justify-end gap-4 p-4">
             <Suspense>
               <Show when="signed-out">
-                <SignInButton mode="modal" />
-                <SignUpButton mode="modal" />
+                <SignInButton mode="modal" forceRedirectUrl="/dashboard" />
+                <SignUpButton mode="modal" forceRedirectUrl="/dashboard" />
               </Show>
               <Show when="signed-in">
                 <UserButton />
               </Show>
             </Suspense>
           </header>
+          {children}
         </ClerkProvider>
       </body>
     </html>
