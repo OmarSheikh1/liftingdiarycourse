@@ -10,7 +10,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { AddExercisesDialog } from "./add-exercises-dialog";
 import { DateInput } from "./date-input";
+import { isPlannableDate } from "@/application/workouts/planning";
+import { listAvailableExercises } from "@/composition/exercises";
 import { getWorkoutsForDate } from "@/composition/workouts";
 
 const DATE_PARAM_FORMAT = "yyyy-MM-dd";
@@ -44,7 +47,15 @@ async function DashboardContent({
   // Defer to request time: the default date is "today", which can't be prerendered.
   await connection();
   const date = parseDateParam((await searchParams).date);
-  const workouts = await getWorkoutsForDate(date);
+  // CHG-20261110-001-PLAN-FUTURE-WORKOUT
+  // Change: On future dates, load the exercise catalog and offer planning.
+  // Both reads run in parallel to avoid stacking database round trips.
+  const canPlan = isPlannableDate(date);
+  const [workouts, availableExercises] = await Promise.all([
+    getWorkoutsForDate(date),
+    canPlan ? listAvailableExercises() : Promise.resolve([]),
+  ]);
+  const plannedExercises = workouts.flatMap((workout) => workout.exercises);
 
   return (
     <>
@@ -54,13 +65,25 @@ async function DashboardContent({
         <CardHeader>
           <CardTitle>Workouts</CardTitle>
           <CardDescription>
-            Logged on {format(date, "do MMM yyyy")}
+            {canPlan ? "Planned for" : "Logged on"} {format(date, "do MMM yyyy")}
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-3">
+          {canPlan && (
+            <AddExercisesDialog
+              key={format(date, DATE_PARAM_FORMAT)}
+              workoutName={workouts[0]?.name ?? null}
+              date={format(date, DATE_PARAM_FORMAT)}
+              dateLabel={format(date, "do MMM yyyy")}
+              exercises={availableExercises}
+              planned={plannedExercises}
+            />
+          )}
           {workouts.length === 0 ? (
             <p className="text-sm text-muted-foreground">
-              No workouts logged for this date.
+              {canPlan
+                ? "No exercises planned for this date."
+                : "No workouts logged for this date."}
             </p>
           ) : (
             workouts.map((workout) => (
@@ -71,8 +94,16 @@ async function DashboardContent({
                     {workout.exerciseCount} exercises
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <Badge variant="secondary">{workout.setCount} sets</Badge>
+                <CardContent className="flex flex-wrap gap-2">
+                  {canPlan ? (
+                    workout.exercises.map((exercise) => (
+                      <Badge key={exercise.id} variant="secondary">
+                        {exercise.order}. {exercise.name}
+                      </Badge>
+                    ))
+                  ) : (
+                    <Badge variant="secondary">{workout.setCount} sets</Badge>
+                  )}
                 </CardContent>
               </Card>
             ))
