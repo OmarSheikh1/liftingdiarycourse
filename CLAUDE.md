@@ -9,6 +9,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `docs/ui.md` — UI coding standards (shadcn/ui components only, no custom components; date-fns date formatting). Read before writing or changing any UI code.
 - `docs/data-fetching.md` — Data fetching and architecture standards (Server Components ONLY; Clean Architecture with dependency inversion, repositories in `src/data/` using Drizzle, NO RAW SQL; users can only access their own data). Read before writing or changing any data fetching or database code.
 
+- `docs/solid.md` — SOLID principles (MUST be strictly followed; project-specific good/bad examples for SRP, OCP, LSP, ISP, DIP; new-feature workflow and review checklist). Read before writing or changing any code.
+
 - `docs/data-mutations.md` — Data mutation standards (writes ONLY via Drizzle helper functions in `src/data/`; mutations ONLY via Server Actions in colocated `actions.ts` files; typed params, NEVER `FormData`; ALL args validated with Zod). Read before writing or changing any mutation or Server Action.
 
 - `docs/auth.md` — Authentication standards (Clerk ONLY; Clerk isolated behind the `SessionProvider` port, user id resolved only via `getAuthenticatedUserId()` in `src/composition/auth.ts`; Clerk components only, no custom auth forms). Read before writing or changing any auth-related code.
