@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/docs-check.js",
+            "statusMessage": "Checking docs directory..."
+          }
+        ]
+      }
+    ]
+  }
+}
