@@ -23,7 +23,7 @@ When new files are added to `/docs`, list them here.
 
 ## Status
 
-Fresh Create Next App scaffold (single initial commit, no app logic yet). Update this file as real architecture emerges.
+Features: dashboard with workout planning, and coach plans (`/coach`, `/coach/[planId]`; Change ID `CHG-20261110-003-COACH-PLANS`). Update this file as real architecture emerges.
 
 ## Commands
 

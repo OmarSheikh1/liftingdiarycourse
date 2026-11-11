@@ -62,3 +62,36 @@
 ### Testing and build
 - `npm run lint`, `npx tsc --noEmit` and `npm run build`: passed.
 - Not yet tried in the browser (needs a Clerk sign-in).
+
+## CHG-20261110-003-COACH-PLANS — Coach workout plans for gym members
+
+- **Date:** 2026-11-11
+- **Purpose:** A signed-in user can act as a coach: assign a future-dated workout plan (exercises with sets, reps/rep range, rest, weight, notes) to a member by email. The member sees it read-only on `/dashboard`.
+- **Prompt/task:** "lets implement the coach workout plan" (plan: `plans/coach-workout-plans/plan.md`).
+
+### Files created
+- `plans/coach-workout-plans/plan.md`
+- `src/application/auth/user-email-provider.ts`
+- `src/application/coach/`: `coach-plan-rules.ts`, `coach-plan-repository.ts`, `create-coach-plan.ts`, `add-exercise-to-coach-plan.ts`, `update-coach-plan-exercise.ts`, `remove-coach-plan-exercise.ts`, `rename-coach-plan.ts`, `delete-coach-plan.ts`, `list-coach-plans.ts`, `get-coach-plan.ts`, `get-assigned-plans-for-date.ts`
+- `src/data/coach/drizzle-coach-plan-repository.ts`, `src/data/auth/clerk-user-email-provider.ts`
+- `src/composition/coach.ts`
+- `src/app/coach/`: `actions.ts`, `page.tsx`, `new-plan-dialog.tsx`, `delete-plan-button.tsx`, `[planId]/page.tsx`, `[planId]/plan-editor.tsx`
+- `src/components/ui/table.tsx`, `textarea.tsx`, `alert-dialog.tsx` (shadcn CLI output)
+- `drizzle/20261111044105_old_tiger_shark/` (generated migration + snapshot)
+
+### Files modified
+- `src/data/schema.ts` (tables `coach_plans`, `coach_plan_exercises`, relations)
+- `src/composition/auth.ts` (`getAuthenticatedUserEmail`)
+- `src/app/dashboard/page.tsx` ("From your coach" card, "Coach plans" link)
+- `CLAUDE.md` (status note)
+
+### Architectural decisions
+- Clean Architecture / Dependency Inversion as in `docs/data-fetching.md`; coach plans are their own aggregate and port, so `WorkoutRepository` is untouched.
+- Coach plans are separate tables owned by `coachUserId` and addressed to a member email; the coach never writes to a member's `workouts`.
+- Member match uses the verified Clerk primary email, read through the new `UserEmailProvider` port (Clerk adapter in `src/data/auth/`).
+- Editability ("only while the date is in the future") is passed to the repository as `earliestEditableDate` and enforced in the `where` clause, so each write is one ownership-checked query and foreign ids are a silent no-op.
+- Duplicate plan (same coach, member, date) is detected with `onConflictDoNothing` on the unique index.
+
+### Testing and build
+- `npx tsc --noEmit`: passed. `npm run lint`: passed. `npm run build`: passed.
+- No test runner is configured. The migration has NOT been applied to the database yet, and no manual browser test with two Clerk accounts has been run.

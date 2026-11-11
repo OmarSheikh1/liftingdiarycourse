@@ -1,0 +1,797 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "90a15482-6bce-4c75-8e07-a364188ca65c",
+  "prevIds": [
+    "9e7cf4a4-c762-4767-b2be-3ea610ee0e13"
+  ],
+  "footprints": [
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "coach_plan_exercises"
+      ],
+      "writes": [
+        "s|tbl|public.coach_plan_exercises",
+        "n|tbl|public.coach_plan_exercises",
+        "e|tbl|public.coach_plan_exercises",
+        "n|rel|public.coach_plan_exercises",
+        "n|type|public.coach_plan_exercises",
+        "n|rel|public.coach_plan_exercises_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "coach_plans"
+      ],
+      "writes": [
+        "s|tbl|public.coach_plans",
+        "n|tbl|public.coach_plans",
+        "e|tbl|public.coach_plans",
+        "n|rel|public.coach_plans",
+        "n|type|public.coach_plans",
+        "n|rel|public.coach_plans_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "coach_plan_exercises",
+        "coach_plan_exercises_plan_order_uq"
+      ],
+      "writes": [
+        "s|idx|public.coach_plan_exercises_plan_order_uq",
+        "n|idx|public.coach_plan_exercises_plan_order_uq",
+        "e|idx|public.coach_plan_exercises_plan_order_uq",
+        "n|rel|public.coach_plan_exercises_plan_order_uq"
+      ],
+      "reads": [
+        "n|tbl|public.coach_plan_exercises",
+        "n|sch|public",
+        "n|col|public.coach_plan_exercises.coach_plan_id",
+        "n|col|public.coach_plan_exercises.order"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "coach_plan_exercises",
+        "coach_plan_exercises_exercise_idx"
+      ],
+      "writes": [
+        "s|idx|public.coach_plan_exercises_exercise_idx",
+        "n|idx|public.coach_plan_exercises_exercise_idx",
+        "e|idx|public.coach_plan_exercises_exercise_idx",
+        "n|rel|public.coach_plan_exercises_exercise_idx"
+      ],
+      "reads": [
+        "n|tbl|public.coach_plan_exercises",
+        "n|sch|public",
+        "n|col|public.coach_plan_exercises.exercise_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "coach_plans",
+        "coach_plans_coach_member_date_uq"
+      ],
+      "writes": [
+        "s|idx|public.coach_plans_coach_member_date_uq",
+        "n|idx|public.coach_plans_coach_member_date_uq",
+        "e|idx|public.coach_plans_coach_member_date_uq",
+        "n|rel|public.coach_plans_coach_member_date_uq"
+      ],
+      "reads": [
+        "n|tbl|public.coach_plans",
+        "n|sch|public",
+        "n|col|public.coach_plans.coach_user_id",
+        "n|col|public.coach_plans.member_email",
+        "n|col|public.coach_plans.plan_date"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "coach_plans",
+        "coach_plans_member_date_idx"
+      ],
+      "writes": [
+        "s|idx|public.coach_plans_member_date_idx",
+        "n|idx|public.coach_plans_member_date_idx",
+        "e|idx|public.coach_plans_member_date_idx",
+        "n|rel|public.coach_plans_member_date_idx"
+      ],
+      "reads": [
+        "n|tbl|public.coach_plans",
+        "n|sch|public",
+        "n|col|public.coach_plans.member_email",
+        "n|col|public.coach_plans.plan_date"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "coach_plans",
+        "coach_plans_coach_date_idx"
+      ],
+      "writes": [
+        "s|idx|public.coach_plans_coach_date_idx",
+        "n|idx|public.coach_plans_coach_date_idx",
+        "e|idx|public.coach_plans_coach_date_idx",
+        "n|rel|public.coach_plans_coach_date_idx"
+      ],
+      "reads": [
+        "n|tbl|public.coach_plans",
+        "n|sch|public",
+        "n|col|public.coach_plans.coach_user_id",
+        "n|col|public.coach_plans.plan_date"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "coach_plan_exercises"
+      ],
+      "writes": [
+        "s|fk|public.coach_plan_exercises.coach_plan_exercises_coach_plan_id_coach_plans_id_fkey",
+        "n|fk|public.coach_plan_exercises.coach_plan_exercises_coach_plan_id_coach_plans_id_fkey",
+        "e|fk|public.coach_plan_exercises.coach_plan_exercises_coach_plan_id_coach_plans_id_fkey",
+        "n|con|public.coach_plan_exercises.coach_plan_exercises_coach_plan_id_coach_plans_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.coach_plan_exercises",
+        "n|sch|public",
+        "n|tbl|public.coach_plans",
+        "n|sch|public",
+        "n|col|public.coach_plan_exercises.coach_plan_id",
+        "n|col|public.coach_plans.id",
+        "e|uniqueness|public.coach_plans.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "coach_plan_exercises"
+      ],
+      "writes": [
+        "s|fk|public.coach_plan_exercises.coach_plan_exercises_exercise_id_exercises_id_fkey",
+        "n|fk|public.coach_plan_exercises.coach_plan_exercises_exercise_id_exercises_id_fkey",
+        "e|fk|public.coach_plan_exercises.coach_plan_exercises_exercise_id_exercises_id_fkey",
+        "n|con|public.coach_plan_exercises.coach_plan_exercises_exercise_id_exercises_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.coach_plan_exercises",
+        "n|sch|public",
+        "n|tbl|public.exercises",
+        "n|sch|public",
+        "n|col|public.coach_plan_exercises.exercise_id",
+        "n|col|public.exercises.id",
+        "e|uniqueness|public.exercises.id"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "coach_plan_exercises",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "coach_plans",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "id",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": {
+          "type": "always",
+          "name": "coach_plan_exercises_id_seq",
+          "increment": "1",
+          "startWith": "1",
+          "minValue": "1",
+          "maxValue": "2147483647",
+          "cache": 1,
+          "cycle": false
+        },
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "coach_plan_id",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "exercise_id",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "order",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "sets",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "reps",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "reps_max",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "rest_seconds",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "weight",
+        "type": "numeric(7,2)",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "notes",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plans",
+        "name": "id",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": {
+          "type": "always",
+          "name": "coach_plans_id_seq",
+          "increment": "1",
+          "startWith": "1",
+          "minValue": "1",
+          "maxValue": "2147483647",
+          "cache": 1,
+          "cycle": false
+        },
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plans",
+        "name": "coach_user_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plans",
+        "name": "coach_email",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plans",
+        "name": "member_email",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plans",
+        "name": "plan_date",
+        "type": "date",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plans",
+        "name": "name",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plans",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "coach_plan_exercises_plan_order_uq",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "coach_plan_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "order",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "coach_plan_exercises_exercise_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "exercise_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plans",
+        "name": "coach_plans_coach_member_date_uq",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "coach_user_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "member_email",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "plan_date",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plans",
+        "name": "coach_plans_member_date_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "member_email",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "plan_date",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plans",
+        "name": "coach_plans_coach_date_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "coach_user_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "plan_date",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "coach_plan_exercises_coach_plan_id_coach_plans_id_fkey",
+        "nameExplicit": false,
+        "columns": [
+          "coach_plan_id"
+        ],
+        "schemaTo": "public",
+        "tableTo": "coach_plans",
+        "columnsTo": [
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "coach_plan_exercises_exercise_id_exercises_id_fkey",
+        "nameExplicit": false,
+        "columns": [
+          "exercise_id"
+        ],
+        "schemaTo": "public",
+        "tableTo": "exercises",
+        "columnsTo": [
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "coach_plan_exercises_pkey",
+        "columns": [
+          "id"
+        ],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plans",
+        "name": "coach_plans_pkey",
+        "columns": [
+          "id"
+        ],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "coach_plan_exercises_sets_positive",
+        "value": "\"sets\" > 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "coach_plan_exercises_reps_positive",
+        "value": "\"reps\" > 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "coach_plan_exercises_reps_max_gte",
+        "value": "\"reps_max\" is null or \"reps_max\" >= \"reps\"",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "coach_plan_exercises_rest_range",
+        "value": "\"rest_seconds\" is null or (\"rest_seconds\" >= 0 and \"rest_seconds\" <= 1800)",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "coach_plan_exercises",
+        "name": "coach_plan_exercises_weight_nonneg",
+        "value": "\"weight\" >= 0",
+        "entityType": "checks"
+      }
+    }
+  ]
+}
